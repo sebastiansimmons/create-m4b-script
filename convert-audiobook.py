@@ -19,14 +19,21 @@ def convertToSingleFile(folder):
             for file in f:
                 if file.endswith(".mp3"):
                     files.append(os.path.join(r, file))
-                    print("LOADING: " +  os.path.join(r, file))
-                    output = output + (AudioSegment.from_mp3(folder + "\\" +file))
+                    #print("LOADING: " +  os.path.join(r, file))
+                    #output = output + (AudioSegment.from_mp3(folder + "\\" +file))
 
 
-    big = output.export("output.mp3", format="mp3")
-    #big = output.export("pls.m4b", format="m4b")
+    #big = output.export("output.mp3", format="mp3")
+    output.export("output.mp3", format="mp3")
+    file = open("mylist.txt","w")
 
-    os.system("ffmpeg -i output.mp3 output.m4b\nrm output.mp3")
+    for f in files:
+        file.write("file '" + f + "'\n")
+    file.close() 
+
+    os.system("ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp3")
+
+    os.system("ffmpeg -i output.mp3 output.m4b\nrm " + os.getcwd()+ "\\output.mp3")
 
 
 
