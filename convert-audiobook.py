@@ -55,4 +55,7 @@ def viewAllFiles(path):
 
 if __name__ == "__main__":
     # Create check for proper arguments
-    convertToSingleFile('Influence')
+    if not sys.argv[1]:
+        print("python convert-audiobook.py <directory filled with mp3s>")
+    else:
+        convertToSingleFile(sys.argv[1])
