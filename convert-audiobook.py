@@ -7,7 +7,7 @@ import os
 
 from pydub import AudioSegment
 
-def convertToSingleFile(folder):
+def convertToSingleFile(folder, name='output'):
     """Converts a list of mp3 files to a single m4b (apple audiobook) format"""
     path = os.getcwd() + "\\" + folder  # This might be unnecessary
     files = []
@@ -33,7 +33,9 @@ def convertToSingleFile(folder):
 
     os.system("ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp3")
 
-    os.system("ffmpeg -i output.mp3 output.m4b\nrm " + os.getcwd()+ "\\output.mp3")
+    os.system("ffmpeg -i output.mp3 " + name + ".m4b")
+    os.system("rm output.mp3")
+    os.system("rm mylist.txt")
 
 
 
@@ -65,4 +67,7 @@ if __name__ == "__main__":
     if not sys.argv[1]:
         print("python convert-audiobook.py <directory filled with mp3s>")
     else:
-        convertToSingleFile(sys.argv[1])
+        if not sys.argv[2]:
+            convertToSingleFile(sys.argv[1])
+        else:
+            convertToSingleFile(sys.argv[1], sys.argv[2])
