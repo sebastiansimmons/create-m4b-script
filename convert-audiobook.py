@@ -1,73 +1,45 @@
-#
-#
-#
-#
 import sys
 import os
 
 from pydub import AudioSegment
 
-def convertToSingleFile(folder, name='output'):
-    """Converts a list of mp3 files to a single m4b (apple audiobook) format"""
-    path = os.getcwd() + "\\" + folder  # This might be unnecessary
+def convertToAudiobook(directory):
+    path = os.getcwd() + "\\" + directory
     files = []
-    loop = 0
-    segments = []
     output = AudioSegment.empty()
-    # r=root, d=directories, f = files
-    for r, d, f in os.walk(path):
-            for file in f:
-                if file.endswith(".mp3"):
-                    files.append(os.path.join(r, file))
-                    #print("LOADING: " +  os.path.join(r, file))
-                    #output = output + (AudioSegment.from_mp3(folder + "\\" +file))
-
-
-    #big = output.export("output.mp3", format="mp3")
     output.export("output.mp3", format="mp3")
-    file = open("mylist.txt","w")
-
-    for f in files:
-        file.write("file '" + f + "'\n")
-    file.close() 
-
-    os.system("ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp3")
-
-    os.system("ffmpeg -i output.mp3 " + name + ".m4b")
-    os.system("rm output.mp3")
-    os.system("rm mylist.txt")
-
-
-
-def viewAllSubDirs(path):
-    folders = []
-    # r=root, d=directories, f = files
-    for r, d, f in os.walk(path):
-        for folder in d:
-            folders.append(os.path.join(r, folder))
-
-    for f in folders:
-        print(f)
     
-
-def viewAllFiles(path):
-    files = []
     # r=root, d=directories, f = files
     for r, d, f in os.walk(path):
         for file in f:
-            files.append(os.path.join(r, file))
+            if file.endswith(".mp3"):
+                files.append(os.path.join(r, file))
 
-    for f in files:
-        print(f)
+    mylist = open("mylist.txt","w")
+    for file in files:
+        print(file)
+        mylist.write("file '" + file + "'\n")               #FFMPEG uses a .txt file for the concat command
+    mylist.close()
 
+    os.system("ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp3")
+    os.system("rm mylist.txt")
+    os.system("ffmpeg -i output.mp3 " + "output.m4b")
+    os.system("rm output.mp3")
 
+def checkFiles(directory):
+    path = os.getcwd() + "\\" + directory
+    files = []
+       # r=root, d=directories, f = files
+    for r, d, f in os.walk(path):
+        for file in f:
+            if file.endswith(".mp3"):
+                print(os.path.join(r, file))
+
+    return
 
 if __name__ == "__main__":
     # Create check for proper arguments
-    if not sys.argv[1]:
-        print("python convert-audiobook.py <directory filled with mp3s>")
+    if sys.argv[1] == '-l':
+        checkFiles(sys.argv[2])
     else:
-        if not sys.argv[2]:
-            convertToSingleFile(sys.argv[1])
-        else:
-            convertToSingleFile(sys.argv[1], sys.argv[2])
+        convertToAudiobook(sys.argv[1])
