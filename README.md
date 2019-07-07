@@ -2,4 +2,8 @@
 
 Script that turns multiple mp3 files into a single m4b (iTunes audiobook) format.
 
-This is a personal project made for utility.
+
+<code>python convert-audiobook.py <directory></code>
+  will create a file, output.m4b, ready to import to iTunes/iBooks.
+  
+  
