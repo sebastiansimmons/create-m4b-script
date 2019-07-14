@@ -11,5 +11,5 @@ Planning to add to this as I listen to more audiobooks and grow more frustrated 
 ## Multi .m4b Audiobook Script
 
 iTunes will recognize multiple files as the same "book" if they are linked via file metadata. 
-<code>python convert-audiobook-group.py \<directory\><\code>
+<code>python convert-audiobook-group.py  \<directory\></code>
   will convert every mp3 file in a directory/directories to a corresponding .m4b. These files will all be the same audiobook when imported into itunes. 
