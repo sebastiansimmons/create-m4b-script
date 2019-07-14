@@ -1,3 +1,7 @@
+## IMPORTANT
+
+This is a python wrapper script for <a href="https://ffmpeg.org/">FFmpeg<a>. You need <a href="https://ffmpeg.org/">FFmpeg<a> for this to work.
+
 ## Single .m4b Audiobook Script
 
 Script that turns multiple mp3 files into a single m4b (iTunes audiobook) format.
