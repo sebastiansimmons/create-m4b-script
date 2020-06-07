@@ -27,7 +27,7 @@ def convertToAudiobook(directory):
 
         newFile = "track" + f"{i+1:02d}" +".m4b"
 
-        ffmpeg = "ffmpeg -i \"" + file + "\" "
+        ffmpeg = "ffmpeg -i \"" + file + "\" -vn "
         ffmpeg += "-metadata track={0}/{1} ".format(i + 1, len(files))
         ffmpeg += "-metadata album=\"" + title + "\" "
         ffmpeg += "-metadata title=\"" + title + "\" "

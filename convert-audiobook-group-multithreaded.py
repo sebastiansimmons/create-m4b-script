@@ -17,7 +17,7 @@ def checkFiles(directory):
 
     return
 
-def worker(info):
+def convert_file(info):
         filename = info['filename']
 
         #title = info['title']
@@ -75,6 +75,6 @@ if __name__ == "__main__":
         os.mkdir(outputdir)
         num_processes=min(converted_count, os.cpu_count())
         p = Pool(processes=num_processes)
-        p.map(worker, files)
+        p.map(convert_file, files)
 
         
